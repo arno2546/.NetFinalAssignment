@@ -14,6 +14,7 @@ namespace FinalAssignment.Models
         [Column(TypeName = "varchar"), StringLength(300), Display(Name = "Comment Text")]
         [Required(ErrorMessage = "Comment cannot be empty")]
         public string CommentText { get; set; }
+        public int PostId { get; set; }
         public Post Post { get; set; }
 
     }

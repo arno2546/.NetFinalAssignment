@@ -9,6 +9,6 @@ namespace testFinalAssignment.Repository
 {
     interface IPostRepository
     {
-      
+        List<Comment> GetPostsWithComments(int id);
     }
 }
