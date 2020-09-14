@@ -15,6 +15,7 @@ namespace FinalAssignment.Models
         [Required(ErrorMessage = "Comment cannot be empty")]
         public string CommentText { get; set; }
         public int PostId { get; set; }
+        public List<HyperLink> HyperLinks = new List<HyperLink>();
         public Post Post { get; set; }
 
     }

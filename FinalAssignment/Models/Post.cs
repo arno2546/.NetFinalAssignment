@@ -17,6 +17,7 @@ namespace FinalAssignment.Models
         [Column(TypeName = "varchar"), StringLength(300), Display(Name = "Post Text")]
         [Required(ErrorMessage = "Post Text cannot be empty")]
         public string PostText { get; set; }
+        public List<HyperLink> HyperLinks = new List<HyperLink>();
         public IEnumerable<Comment> Comments { get; set; }
     }
 }

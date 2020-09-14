@@ -16,7 +16,8 @@ namespace FinalAssignment.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(pRep.GetAll());
+            List<Post> HRefedPosts = PostHyperRef(pRep.GetAll());
+            return Ok(HRefedPosts);
         }
         [Route("{id}",Name="GetById")]
         public IHttpActionResult Get(int id)
@@ -26,6 +27,10 @@ namespace FinalAssignment.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
+            p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "GET", Relation = "Self" });
+            p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts", HttpMethod = "Post", Relation = "Create a new Post" });
+            p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "PUT", Relation = "Edit self" });
+            p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "DELETE", Relation = "DELETE self" });
             return Ok(p);
         }
         [Route("")]
@@ -51,7 +56,8 @@ namespace FinalAssignment.Controllers
         [Route("{id}/comments")]
         public IHttpActionResult GetCommentWithPost(int id)
         {
-            return Ok(pRep.GetPostsWithComments(id));
+            List<Comment> HRefedComments = CommentHyperRef(pRep.GetPostsWithComments(id));
+            return Ok(HRefedComments);
         }
         [Route("{id}/comments")]
         public IHttpActionResult PostCommentWithPost([FromBody]Comment c,[FromUri]int id)
@@ -70,6 +76,10 @@ namespace FinalAssignment.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
+            c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId+"/comments/"+c.CommentId, HttpMethod = "GET", Relation = "Self" });
+            c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/"+c.PostId+"/comments", HttpMethod = "Post", Relation = "Create a new Post" });
+            c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" +c.PostId+"/comments/"+c.CommentId, HttpMethod = "PUT", Relation = "Edit self" });
+            c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId + "/comments/" + c.CommentId, HttpMethod = "DELETE", Relation = "DELETE self" });
             return Ok(c);
         }
         [Route("{id}/comments/{cid}")]
@@ -93,6 +103,34 @@ namespace FinalAssignment.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
             }
             return StatusCode(HttpStatusCode.NotFound);
+        }
+
+        private List<Post> PostHyperRef(List<Post> posts)
+        {
+            List<Post> HRefedPosts = new List<Post>();
+            foreach(Post p in posts)
+            {
+                p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "GET", Relation = "Self" });
+                p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts", HttpMethod = "Post", Relation = "Create a new Post" });
+                p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "PUT", Relation = "Edit self" });
+                p.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + p.PostId, HttpMethod = "DELETE", Relation = "DELETE self" });
+                HRefedPosts.Add(p);
+            }
+            return HRefedPosts;
+        }
+
+        private List<Comment> CommentHyperRef(List<Comment> Comments)
+        {
+            List<Comment> HRefedComments = new List<Comment>();
+            foreach(Comment c in Comments)
+            {
+                c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId + "/comments/" + c.CommentId, HttpMethod = "GET", Relation = "Self" });
+                c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId + "/comments", HttpMethod = "Post", Relation = "Create a new Post" });
+                c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId + "/comments/" + c.CommentId, HttpMethod = "PUT", Relation = "Edit self" });
+                c.HyperLinks.Add(new HyperLink() { HRef = "https://localhost::44313/api/posts/" + c.PostId + "/comments/" + c.CommentId, HttpMethod = "DELETE", Relation = "DELETE self" });
+                HRefedComments.Add(c);
+            }
+            return HRefedComments;
         }
     }
 }
