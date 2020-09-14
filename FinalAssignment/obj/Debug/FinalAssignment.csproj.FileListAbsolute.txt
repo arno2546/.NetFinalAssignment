@@ -140,3 +140,6 @@ C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\obj\Debug\Fin
 C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\obj\Debug\FinalAssignment.csproj.CopyComplete
 C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\obj\Debug\FinalAssignment.dll
 C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\obj\Debug\FinalAssignment.pdb
+C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\bin\System.Web.Cors.dll
+C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\bin\System.Web.Http.Cors.dll
+C:\Users\arno\Documents\GitHub\.NetFinalAssignment\FinalAssignment\bin\System.Web.Http.Cors.xml
